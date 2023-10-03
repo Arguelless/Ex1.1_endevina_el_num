@@ -1,11 +1,7 @@
 package com.example.ex12_endevina_el_numero_arguelles;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,15 +9,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private int randomNum;
-    int numeros = 0;
-    private int[] historial;
     private int numIntentos;
     private EditText inputnumber;
-    private TextView ranking;
     private TextView intentos;
     Random random = new Random();
     @Override
@@ -30,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         inputnumber = findViewById(R.id.inputnumber);
-        ranking = findViewById(R.id.ranking);
         intentos = findViewById(R.id.intentos);
         Button button_endevinar = findViewById(R.id.button_endevinar);
+        Button rankingB = findViewById(R.id.rankingB);
 
 
         randomNum = random.nextInt(100) + 1;
@@ -43,8 +39,20 @@ public class MainActivity extends AppCompatActivity {
                 checkGuess();
             }
         });
-    }
+        rankingB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirRankingWindow(view);
+            }
+        });
 
+    }
+    public void abrirRankingWindow(View view) {
+        Intent intent = new Intent(this, RecordsActivity.class);
+
+        startActivity(intent);
+
+    }
 
     private void checkGuess() {
         numIntentos ++;
@@ -59,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
                 // Puedes guardar la cantidad de intentos y actualizar la leaderboard aquí.
                 intentos.setText("");
-                ranking.setText("");
                 AlertDialog.Builder builder = new AlertDialog.Builder((MainActivity.this));
                 builder.setMessage("Felicidades, acertaste el número!")
                         .setTitle("FELICIDADES")

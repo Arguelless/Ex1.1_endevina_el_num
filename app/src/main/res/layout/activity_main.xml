@@ -75,5 +75,19 @@
             tools:visibility="visible" />
     </ScrollView>
 
+    <Button
+        android:id="@+id/rankingB"
+        android:layout_width="113dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="276dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="3dp"
+        android:text="@string/ranking"
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
