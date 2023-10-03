@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputnumber;
     private TextView ranking;
     private TextView intentos;
+    Random random = new Random();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         Button button_endevinar = findViewById(R.id.button_endevinar);
 
 
-        Random random = new Random();
         randomNum = random.nextInt(100) + 1;
         numIntentos = 0;
         button_endevinar.setOnClickListener(new View.OnClickListener() {
@@ -56,15 +57,37 @@ public class MainActivity extends AppCompatActivity {
             // Compara el intento del usuario con el número aleatorio.
             if (userGuess == randomNum) {
 
-                Toast.makeText(this, "¡Adivinaste!", Toast.LENGTH_SHORT).show();
-
                 // Puedes guardar la cantidad de intentos y actualizar la leaderboard aquí.
                 intentos.setText("");
                 ranking.setText("");
+                AlertDialog.Builder builder = new AlertDialog.Builder((MainActivity.this));
+                builder.setMessage("Felicidades, acertaste el número!")
+                        .setTitle("FELICIDADES")
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                randomNum = random.nextInt(100) + 1;
+                numIntentos = 0;
+
+
+            } else if (userGuess > randomNum) {
+                Toast.makeText(this, "Demasiado grande", Toast.LENGTH_SHORT).show();
+                intentos.append(numIntentos + ": " + userGuess + "\n");
+
 
             } else {
+                Toast.makeText(this, "Demasiado pequeño", Toast.LENGTH_SHORT).show();
                 intentos.append(numIntentos + ": " + userGuess + "\n");
             }
+
+
+
+
             inputnumber.setText("");
             // Actualiza la cantidad de intentos en la vista.
 
@@ -72,9 +95,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Por favor, ingresa un número.", Toast.LENGTH_SHORT).show();
         }
     }
-    private void funcRanking(int guess){
 
 
-    }
 
     }
